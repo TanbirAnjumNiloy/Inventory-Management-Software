@@ -1,0 +1,69 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6A82FB, #FC5C7D);
+    height: 100vh;
+    margin: 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    background: #fff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group select, .form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.form-group select:focus, .form-group input:focus {
+    border-color: #6A82FB;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #6A82FB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-group button:hover {
+    background: #FC5C7D;
+}
+
+button[type="button"] {
+    background: #FC5C7D;
+}
+
+button[type="button"]:hover {
+    background: #6A82FB;
+}

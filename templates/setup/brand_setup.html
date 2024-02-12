@@ -1,0 +1,36 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/brandsetup.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Brand Setup</title>
+   </head>
+   <body>
+      <div class="form-container">
+         <h2>Brand Setup</h2>
+         <form action="{% url 'brand_setup' %}" method="post">
+            {% csrf_token %}
+            <div class="form-field">
+               <label for="brand_name">Brand Name:</label>
+               <input type="text" id="brand_name" name="brand_name">
+            </div>
+            <br>
+            <div class="form-field">
+               <label for="supplier_id">Supplier:</label>
+               <select id="supplier_id" name="supplier">
+                  {% for supplier in suppliers %}
+                  <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <br>
+            <div class="form-action">
+               <button type="submit" class="save-btn">Save</button>
+               <button type="button" class="exit-btn"><a href="{% url 'setup' %}">Exit</a></button>
+            </div>
+         </form>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lifting Update</title>
+	<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #ccc;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        form label {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        
+        form input[type="text"], form input[type="date"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #ccc;
+            width: 300px;
+            max-width: 100%;
+            margin-right: 10px;
+        }
+        
+        form button[type="submit"], .edit-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        form button[type="submit"]:hover, .edit-button:hover {
+            background-color: #3e8e41;
+        }
+        
+        .form-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .form-buttons button[type="submit"], .form-buttons .edit-button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: normal;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        td {
+            vertical-align: middle;
+        }
+        
+        tfoot td {
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        input[type=text] {
+            padding: 8px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #ccc;
+            width: 100px; /* adjust the width to your liking */
+            max-width: 100%;
+        }
+        
+        .edit-button {
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .edit-button:hover {
+            background-color: #3e8e41;
+        }
+        
+		
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Damage Delate </h1>
+	</header>
+	<main>
+		<form method="post">
+			{% csrf_token %}
+			<label for="mem-number">Damage Memo Number:</label> <br>
+            <input type="text" id="mem-number" name="mem_number"> <br>
+
+           
+              
+              <br> <br>
+			<button type="submit">Delate</button>
+			<br>
+			<button type="submit"><a href="{% url 'control' %}">Exit</a></button>
+			
+		  </form>
+
+
+		 
+		
+		
+		
+    

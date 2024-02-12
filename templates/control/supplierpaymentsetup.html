@@ -1,0 +1,97 @@
+{% for sp in supplier_payments %}
+<form method="post" action="{% url 'update_supplier_payment' %}">
+  {% csrf_token %}
+  <input type="hidden" name="supplier_payment_id" value="{{ sp.id }}">
+  <table>
+    <thead>
+      <tr>
+        <th>Supplies Name</th>
+        <th>Branch</th>
+        <th>Bank Name</th>
+        <th>AC/No</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Update</th>
+        <th>Exit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ sp.supplier.sname }}</td>
+        <td>{{ sp.bank.branch }}</td>
+        <td>{{ sp.bank.bank_name }}</td>
+        <td>{{ sp.bank.account_no }}</td>
+        <td><input type="text" name="amount" value="{{ sp.amount }}"></td>
+        <td>{{ sp.date }}</td>
+        <td><button type="submit">Update</button></td>
+        <td><button type="submit"><a href="{% url 'control' %}">Exit</a></button></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+{% endfor %}
+
+
+  
+  <style>
+    /* Center the form and table on the page */
+form {
+    margin: 0 auto;
+    width: 80%;
+  }
+  
+  table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  /* Style the table header */
+  thead th {
+    background-color: #ccc;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Style the table rows */
+  tbody tr {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the table cells */
+  td {
+    padding: 10px;
+  }
+  
+  /* Style the input fields */
+  input[type="text"],
+  input[type="date"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+  }
+  
+  /* Style the Update button */
+  button[type="submit"] {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  /* Change the Update button color on hover */
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  </style>

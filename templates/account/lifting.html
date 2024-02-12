@@ -1,0 +1,72 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/lifting.css' %}">
+<script src="{% static 'assets/js/account/lifting.js' %}"></script>
+<form action="{% url 'lifting' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="dropdown-container">
+      <div class="dropdown-wrapper">
+         <label for="supplier" class="label">Supplier:</label>
+         <select id="supplier" name="supplier" class="select">
+            {% for supplier in suppliers %}
+            <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="dropdown-wrapper">
+         <label for="brand" class="label">Brand:</label>
+         <select id="brand" name="brand" class="select">
+            {% for brand in brands %}
+            <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-group">
+         <button type="submit" class="buttony">Show Products</button>
+         <button type="button" class="logout-button" onclick="location.href='{% url 'account' %}';">Exit</button>
+      </div>
+   </div>
+</form>
+{% if products %}
+<form action="{% url 'lifting' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="form-group">
+      <label for="date" class="label" required>Date:</label>
+      <input type="date" id="date" name="date" class="input" required>
+      <label for="invoicing" class="label" required>Invoicing:</label>
+      <input type="text" id="invoicing" name="invoicing" class="input" required>
+   </div>
+   <table class="table">
+      <thead>
+         <tr>
+            <th>
+               <input type="checkbox" id="master-checkbox" onClick="pro_checkall();" class="checkbox">
+            </th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Qty</th>
+            <th>Purchase Price</th>
+            <th>Total Amount </th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for product in products %}
+         <tr>
+            <td>
+               <input type="checkbox" name="product_ids[]" value="{{ product.id }}" class="checkbox checkbox-item" >
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.size }}</td>
+            <td><input type="number" name="{{ product.id }}_qty" value="" step="any"  class="input" oninput="calculateTotalAmount({{ product.id }})"></td>
+            <td><input type="number" name="{{ product.id }}_price" step="any"  value="{{ product.current_price }}" class="input" id="{{ product.id }}_price"></td>
+            <td><input type="number" name="{{ product.id }}_total" value="" class="input" id="{{ product.id }}_total" step="any"  ></td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <br>
+   <div class="form-group">
+      <button type="submit" name="save_price" value="true" class="button">Add to Cart</button> 
+      <a href="{% url 'liftingcart' %}"><button type="submit" name="save_price" value="true" class="buttonC">View Cart</button></a>
+   </div>
+</form>
+{% endif %}

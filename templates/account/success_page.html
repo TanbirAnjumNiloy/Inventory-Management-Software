@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/success_page.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Success Page</title>
+      <link rel="stylesheet" href="">
+   </head>
+   <body>
+      <div class="success-message">
+         <h1>Success!</h1>
+         <p>Your data has been saved successfully.</p>
+         <a href="{% url 'account' %}">Go back to the form</a>
+      </div>
+   </body>
+</html>

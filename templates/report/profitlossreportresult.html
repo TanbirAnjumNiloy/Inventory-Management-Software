@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Loss/Profit Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>SL NO</th>
+                <th>Products name and size</th>
+                <th>Qty</th>
+                <th>Purchase Prices</th>
+                <th>Sales Prices</th>
+                <th>Distance</th>
+                <th>Profit</th>
+                <th>Loss</th>
+                <th>Total Commission</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through your data and populate the table rows here -->
+            <!-- Example row: -->
+             {% for sale in sales %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ sale.product__name }} {{ sale.product__size }}</td> 
+        <td>{{ sale.total_quantity }}</td> <!-- Use sale['total_quantity'] instead of sale.quantity -->
+        <td>{{ sale.purchase_price }}</td>
+        <td>{{ sale.sales_price }}</td>
+        <td>{{ sale.distance }}</td>
+        <td>{{ sale.profit }}</td>
+        <td>{{ sale.loss }}</td>
+        <td>{{ sale.total_commission }}</td>
+    </tr>
+    {% endfor %}
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total:</td>
+                <td> </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ total_profit }}</td>
+                <td>{{ total_loss }}</td>
+                <td>{{ total_commission }}</td>
+            </tr>
+            <tr>
+                <td colspan="7" >Total Profit :</td>
+                <td colspan="7" >{{ total_profit }}</td>
+            </tr>
+            <tr>
+                <td colspan="7">Total Commission( - ):</td>
+                <td colspan="7">- {{ total_commission }}</td>
+            </tr>
+            <tr>
+                <td colspan="7">Total Loss ( - ):</td>
+                <td colspan="7">{{ total_loss }}</td>
+            </tr>
+            <tr>
+                <td colspan="7">Net Profit:</td>
+                <td colspan="7">{{ net_profit }}</td>
+            </tr>
+        </tfoot>
+        
+    </table>
+</body>
+</html>

@@ -1,0 +1,236 @@
+.dropdown-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: -50px;
+  }
+  
+  .dropdown-wrapper {
+    margin-right: 20px;
+  }
+  
+  .label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  
+  .buttony {
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: -8px;
+    height: 40px;
+    width: 150px;
+    margin-left: 20px;
+    
+  }
+  
+  .form-group {
+    display: flex;
+    align-items: center;
+  }
+  
+
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  .input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px;
+    font-size: 16px;
+  }
+  
+  .button {
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    float: left;
+    height: 40px;
+    width: 150px;
+  }
+
+  .buttonC {
+    background-color: red;
+    padding: 2px;
+    margin-left: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    float: left;
+    height: 40px;
+    width: 150px;
+  }
+  
+  .checkbox {
+    height: 18px;
+    width: 18px;
+  }
+  
+  #master-checkbox {
+    margin-right: 10px;
+  }
+  
+  .form-group {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .logout-button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: -8px;
+    height: 40px;
+    width: 150px;
+    margin-left: 20px;
+  }
+  .form-group {
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  .form-group label {
+    margin-right: 10px;
+  }
+  
+  .form-group #date {
+    margin-right: auto;
+  }
+
+  .lifting-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .lifting-table th,
+  .lifting-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .lifting-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .lifting-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  #final-button {
+    /* Add this property to position the button to the right */
+    float: right;
+    
+    padding: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  #final-button:hover {
+    background-color: #3e8e41;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .container {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    
+    .header {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .form {
+      margin: 40px 0;
+    }
+    
+    .dropdown-container {
+      flex-direction: row;
+      justify-content: center;
+    }
+    
+    .dropdown-wrapper {
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+    
+    .select {
+      width: 200px;
+      margin-bottom: 2px;
+    }
+    
+    .buttony,
+    .button,
+    .buttonC {
+      width: 150px;
+      margin-top: -10;
+      margin-bottom: 0;
+    }
+    
+    .logout-button {
+      width: 150px;
+      margin-top: -10;
+      margin-bottom: 0;
+    }
+    
+    .checkbox {
+      margin-right: 10px;
+    }
+    
+    .table {
+      font-size: 16px;
+    }
+    
+    .lifting-table {
+      font-size: 16px;
+    }
+  }
+  
+  
+  
+  

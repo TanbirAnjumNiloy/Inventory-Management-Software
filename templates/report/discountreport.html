@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SALES REPORT</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f5f5f5;
+				margin: 0;
+				padding: 0;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 20px auto;
+				background-color: #ffffff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			fieldset {
+				border: 1px solid #cccccc;
+				padding: 20px;
+				margin-bottom: 20px;
+			}
+
+			legend {
+				font-weight: bold;
+				padding: 5px;
+			}
+
+			form {
+				width: 100%;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			select,
+			input[type="date"] {
+				width: 100%;
+				padding: 5px;
+				font-size: 14px;
+				border: 1px solid #cccccc;
+				border-radius: 4px;
+			}
+
+			input[type="submit"],
+			input[type="button"] {
+				background-color: #007FFF;
+				color: #ffffff;
+				padding: 10px 20px;
+				font-size: 14px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				text-align: center;
+				justify-content: center;
+			}
+
+			input[type="submit"]:hover,
+			input[type="button"]:hover {
+				background-color: #0056b3;
+			}
+
+			.button-container {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+<!-- This is discount Report -->
+
+		<div class="container">
+			<div id="respond">
+				<fieldset>
+					<legend>:: Discount Report - Program  Wise ::</legend>
+					<form method="POST" action="{% url 'discountreport' %}">
+						{% csrf_token %}
+
+						<table>
+							<tr>
+								<td>Supplier All:</td>
+								<td>
+									<select id="supplier" name="supplier">
+										{% for supplier in suppliers %}
+										<option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+										{% endfor %}
+									</select>
+								</td>
+								<td align="right"> Brand All: </td>
+								<td>
+									<select id="brand" name="brand">
+										{% for brand in brands %}
+										<option value="{{ brand.id }}">{{ brand.name }}</option>
+										{% endfor %}
+									</select>
+								</td>
+
+
+								<td align="right"> Discount All: </td>
+                                    <td>
+                                        <select id="discount" name="discount">
+                                            {% for discount in discount %}
+                                            <option value="{{ discount.id }}">{{ discount.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+
+
+
+							</tr>
+							<tr>
+								<td>From:</td>
+								<td>
+									<input type="date" id="from-date" name="from-date">
+								</td>
+
+								<td style="text-align: center;">To:</td>
+								<td>
+									<input type="date" id="to-date" name="to-date">
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+									<div class="button-container">
+										<input type="submit" value="Search" name="search">
+										<a href="{% url 'report' %}"><input type="button" value="Exit"></a>
+
+
+
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+		</div>
+
+        <!--  discount Report End -->
+
+    </body>
+    </html>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const supplierDropdown = document.getElementById("supplier");
+            const brandDropdown = document.getElementById("brand");
+            const discountDropdown = document.getElementById("discount"); // Replace 'brand' with 'discount' in your template
+        
+            // Assuming you have the relationship between suppliers, brands, and discounts
+            const discountsData = [
+                {% for discount in discount %}
+                {
+                    supplier: "{{ discount.supplier.id }}",
+                    brand: "{{ discount.brand.id }}",
+                    id: "{{ discount.id }}",
+                    name: "{{ discount.name }}"
+                },
+                {% endfor %}
+            ];
+        
+            function updateDiscounts() {
+                const selectedSupplier = supplierDropdown.value;
+                const selectedBrand = brandDropdown.value;
+                const filteredDiscounts = discountsData.filter(
+                    discount => discount.supplier === selectedSupplier && discount.brand === selectedBrand
+                );
+        
+                // Clear the discount dropdown
+                discountDropdown.innerHTML = "";
+        
+                // Populate the discount dropdown with the filtered discounts
+                filteredDiscounts.forEach(discount => {
+                    const option = document.createElement("option");
+                    option.value = discount.id;
+                    option.text = discount.name;
+                    discountDropdown.add(option);
+                });
+            }
+        
+            // Update the discounts when the supplier or brand dropdown changes
+            supplierDropdown.addEventListener("change", updateDiscounts);
+            brandDropdown.addEventListener("change", updateDiscounts);
+        
+            // Initialize the discount dropdown on page load
+            updateDiscounts();
+        });
+
+        </script>
+        

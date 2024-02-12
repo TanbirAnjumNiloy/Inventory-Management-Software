@@ -1,0 +1,96 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/chack.css' %}">
+<form action="{% url 'chack' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="dropdown-container">
+      <div class="dropdown-wrapper">
+         <label for="supplier" class="label">Supplier:</label>
+         <select id="supplier" name="supplier" class="select">
+            {% for supplier in suppliers %}
+            <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="dropdown-wrapper">
+         <label for="brand" class="label">Brand:</label>
+         <select id="brand" name="brand" class="select">
+            {% for brand in brands %}
+            <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-group">
+         <button type="submit" class="buttony">Show Products</button>
+         <button type="button" class="logout-button" onclick="location.href='{% url 'account' %}';">Exit</button>
+      </div>
+   </div>
+</form>
+{% if products %}
+<form action="" method="post" class="form">
+   {% csrf_token %}
+   <table class="table">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Receive</th>
+            <th>Return</th>
+            <th>Total Sales</th>
+            <th>Sales Rate</th>
+            <th>Total Taka</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for product in products %}
+         <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.size }}</td>
+            <td><input type="number" id="receive{{ product.id }}" value="" step="any" class="input receive"></td>
+            <td><input type="number" id="return{{ product.id }}" value="" step="any" class="input return"></td>
+            <td><input type="number" id="total{{ product.id }}" value="" step="any" class="input total" readonly></td>
+            <td><input id="sell_price_{{ product.id }}" step="any" type="number" name="" value="{{ product.current_price }}" class="input-sales-rate" readonly></td>
+            <td><input type="number" id="total_taka{{ product.id }}" value="" step="any" class="input total-taka" readonly></td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <div class="form-group"></div>
+</form>
+{% endif %}
+<script>
+   // get all receive, return, total sales, sales rate, and total taka inputs
+   const receiveInputs = document.querySelectorAll('.receive');
+   const returnInputs = document.querySelectorAll('.return');
+   const totalSalesInputs = document.querySelectorAll('.total');
+   const salesRateInputs = document.querySelectorAll('.input-sales-rate');
+   const totalTakaInputs = document.querySelectorAll('.total-taka');
+   
+   // function to calculate total sales and total taka
+   function calculateTotal(receiveInput, returnInput, totalSalesInput, salesRateInput, totalTakaInput) {
+       const receive = parseFloat(receiveInput.value) || 0;
+       const returned = parseFloat(returnInput.value) || 0;
+       const totalSales = receive - returned;
+   
+       // set the total sales value
+       totalSalesInput.value = totalSales.toFixed(2);
+   
+       // calculate total taka
+       const salesRate = parseFloat(salesRateInput.value) || 0;
+       const totalTaka = totalSales * salesRate;
+   
+       // set the total taka value
+       totalTakaInput.value = totalTaka.toFixed(2);
+   }
+   
+   // add event listeners
+   receiveInputs.forEach((input, index) => {
+       const returnInput = returnInputs[index];
+       const totalSalesInput = totalSalesInputs[index];
+       const salesRateInput = salesRateInputs[index];
+       const totalTakaInput = totalTakaInputs[index];
+   
+       input.addEventListener('input', () => calculateTotal(input, returnInput, totalSalesInput, salesRateInput, totalTakaInput));
+       returnInput.addEventListener('input', () => calculateTotal(input, returnInput, totalSalesInput, salesRateInput, totalTakaInput));
+       salesRateInput.addEventListener('input', () => calculateTotal(input, returnInput, totalSalesInput, salesRateInput, totalTakaInput));
+   });
+</script>

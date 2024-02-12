@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  </head>
+  
+  
+  <style type="text/css">
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .container > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .container > div img {
+        width: 100px;
+        height: 100px;
+        margin-left: 35px;
+        text-align: center;
+    }
+
+    .container > div h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #333;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .container a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .container a:hover {
+        color: #0077b6;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container > div {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+  
+  <div class="container">
+  
+    
+    <div>
+      <a href="{% url 'liftingreport' %}">
+      <img src="{% static 'assets/img/Liftingl-setup-icon.png' %}" alt="Suppliers Setup icon"><h2>Lifting Report</h2>
+    </a>
+    </div>
+
+    
+    <div>
+      <a href="{% url 'salesreport' %}">
+      <img src="{% static 'assets/img/Saless-setup-icon.png' %}" alt="Brand Setup icon"><h2>Sales Report</h2>
+    </a>
+      
+    </div>
+  
+    <div>
+      <a href="{% url 'damagereport' %}">
+      <img src="{% static 'assets/img/Damaged-name-icon.png' %}" alt="Group Name icon"><h2>Damage Report</h2>
+    </a>
+    </div>
+    <div><a href="{% url 'stockreport' %}"><img src="{% static 'assets/img/Stock-setup-icon.png' %}" alt="Market Setup icon"><h2>Stock Report</h2></a></div>
+    
+    <div>
+      <a href="{% url 'supplierledgerreport' %}">
+      <img src="{% static 'assets/img/Suppliersp-name-icon.png' %}" alt="Product Name icon"><h2>Supplier Ledger</h2>
+    </a>
+    </div>
+
+    <div>
+      <a href="{% url 'profitlossreport' %}">
+          <img src="{% static 'assets/img/Profit-setup-icon.png' %}" alt="Market Setup icon"><h2>Profit/Loss Report</h2>
+      </a>
+  </div>
+
+  <!-- New div -->
+  <div>
+      <a href="{% url 'discountreport' %}">
+          <img src="{% static 'assets/img/diccountre-setup-icon.png' %}" alt="Market Setup icon"><h2>Discount Report</h2>
+      </a>
+  </div>
+  <!-- New div -->
+  <div>
+      <a href="{% url 'costreport' %}">
+          <img src="{% static 'assets/img/billreport-setup-icon.png' %}" alt="Market Setup icon"><h2> Cost Report </h2>
+      </a>
+  </div>
+  <!-- New div -->
+  <div>
+      <a href="{% url 'statement' %}">
+          <img src="{% static 'assets/img/financial-statement.png' %}" alt="Market Setup icon"><h2>  Statement </h2>
+      </a>
+  </div>
+  
+  
+  
+  <div>
+      <a href="{% url 'searchkg' %}">
+          <img src="{% static 'assets/img/kgfind.png' %}" alt="Market Setup icon"><h2> Find KG </h2>
+      </a>
+  </div>
+  
+  
+ <div>
+      <a href="{% url 'assetview' %}">
+          <img src="{% static 'assets/img/asffset.png' %}" alt="Market Setup icon"><h2> Assets Report </h2>
+      </a>
+  </div>
+
+</div>
+
+
+
+{% endblock %}

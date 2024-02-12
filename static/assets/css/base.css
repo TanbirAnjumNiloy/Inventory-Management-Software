@@ -1,0 +1,58 @@
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: skyblue;
+    padding: 0.1px;
+    text-align: center;
+  }
+  
+  nav {
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  #logout-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  section {
+    margin: 20px 0;
+  }
+  
+  footer {
+    background-color: lightgray;
+    padding: 20px;
+    text-align: center;
+  }
+  

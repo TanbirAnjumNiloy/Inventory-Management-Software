@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+form {
+    width: 100%;
+    padding: 8px;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+form div {
+    margin-bottom: 10px;
+}
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+form input[type="date"],
+form input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+form input[type="submit"],
+form input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+form input[type="button"] {
+    background-color: #f0ad4e;
+}

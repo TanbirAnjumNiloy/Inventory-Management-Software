@@ -1,0 +1,100 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid black;
+            text-align: center;
+            border: 3px black black;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0077b6;
+        }
+
+        a:hover {
+            color: #333;
+        }
+
+        button.edit-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+          }
+          
+          button.edit-button:hover {
+            background-color: #3e8e41;
+          }
+          
+        
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Product List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Serial No.</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Supplier</th>
+                <th>Commission</th>
+                <th>Brand Name</th>
+                <th>Action</th>
+                <th>Back</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.size }}</td>
+                    <td>{{ product.supplier.sname }}</td>
+                    <td>{{ product.commission }}</td>
+                    <td>{{ product.brand.name }}</td>
+                    <td><a href="{% url 'productedit' product_id=product.id %}"><button class=" edit-button " > Update</button></a></td>
+                    <td><a href="{% url 'control' %}"><button type="button" class="edit-button">Back</button></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

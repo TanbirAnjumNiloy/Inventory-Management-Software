@@ -1,0 +1,55 @@
+{% load static %}
+<script src="{% static 'assets/js/account/acdiccount.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/acdiccount.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Discount</title>
+   </head>
+   <body>
+      <form action="{% url 'acdiccount' %}" method="POST">
+         {% csrf_token %}
+         <div class="container">
+            <label for="supplier">Supplier:</label>
+            <select id="supplier" name="supplier">
+               {% for supplier in suppliers %}
+               <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+               {% endfor %}
+            </select>
+            <label for="brand">Brand:</label>
+            <select id="brand" name="brand">
+               {% for brand in brands %}
+               <option value="{{ brand.id }}">{{ brand.name }}</option>
+               {% endfor %}
+            </select>
+            <!-- ... -->
+            <label for="brand">Program Name:</label>
+            <select id="discount" name="discount">
+               {% for discount in discount_setups %}
+               <option value="{{ discount.id }}" data-supplier="{{ discount.supplier.id }}" data-brand="{{ discount.brand.id }}">{{ discount.name }}</option>
+               {% endfor %}
+            </select>
+            <label for="sr">SR:</label>
+            <select id="sr" name="sr">
+               {% if sr %}
+               {% for salesmanager in sr %}
+               <option value="{{ salesmanager.id }}">{{ salesmanager.name }}</option>
+               {% endfor %}
+               {% endif %}
+            </select>
+            <!-- ... -->
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" placeholder="Enter amount">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <input type="submit" value="Save">
+            <a href="{% url 'account' %}">
+            <input type="button" value="Exit">
+            </a>
+         </div>
+      </form>
+   </body>
+</html>

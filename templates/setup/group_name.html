@@ -1,0 +1,35 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/group_name.css' %}">
+<html>
+   <head>
+   </head>
+   <body>
+      <form action="category_setup_action.php" method="post" id="personal_details">
+         <table align="center">
+            <tbody>
+               <tr>
+                  <td align="right"> Category Name: </td>
+                  <td><input type="text" name="name" id="name" size="20"></td>
+               </tr>
+               <tr>
+                  <td align="right"> Supplier: </td>
+                  <td>
+                     <select name="supplier">
+                        <option value="">--- Select One ---</option>
+                        <option value="2"> Fresh</option>
+                        <option value="15"> Frooto</option>
+                        <option value="4"> noodles</option>
+                        <option value="3"> pran</option>
+                        <option value="1"> Teer</option>
+                        <option value="10">sundrop</option>
+                     </select>
+                     <input type="submit" id="submit" value="Save Now">
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </form>
+   </body>
+</html>
+{% block content %}
+{% endblock %}

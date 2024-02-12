@@ -1,0 +1,51 @@
+<style>
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  table, th, td {
+      border: 1px solid black;
+  }
+  th, td {
+      padding: 8px;
+      text-align: left;
+  }
+  th {
+      background-color: #f9f9f9;
+  }
+  tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+  th:nth-child(5), td:nth-child(5) {
+      display: none;
+  }
+</style>
+
+  
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: center;">Serial No</th>
+        <th style="text-align: center;">Product Name and Size</th>
+        <th style="text-align: center;">Total Lifting Qty</th>
+        <th style="text-align: center;">Grams</th>
+        <th style="text-align: center;">Total Grams</th>
+        <th style="text-align: center;">Kg</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for row in product_data %}
+          <tr >
+            <td style="text-align: center;">{{ forloop.counter }}</td>
+            <td style="text-align: center;"> {{ row.product_name }} {{ row.product_size }}</td>
+            <td style="text-align: center;" >{{ row.total_lifting_qty }}</td>
+            <td style="text-align: center;" >{{ row.set_grams }} GM</td> 
+            <td style="text-align: center;" >{{ row.grams }} GM</td> 
+            <td style="text-align: center;">{{ row.kg }} KG</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      
+  </table>
+  
+  

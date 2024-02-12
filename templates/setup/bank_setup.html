@@ -1,0 +1,45 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/bank_setup.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bank Setup Form</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/bank_setup.css' %}">
+   </head>
+   <body>
+      <div class="container">
+         <h1>Bank Setup Form</h1>
+         <form action="{% url 'bank_setup' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+               <label for="bank-name">Bank Name</label>
+               <input type="text" id="bank-name" name="bank_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+               <label for="account-no">Account No</label>
+               <input type="text" id="account-no" name="account_no" class="form-control" required>
+            </div>
+            <div class="form-group">
+               <label for="branch">Branch</label>
+               <input type="text" id="branch" name="branch" class="form-control" required>
+            </div>
+            <div class="option">
+               <input type="radio" id="deposit-ac" name="account_type" value="deposit" checked>
+               <label for="deposit-ac">Deposit A/c</label>
+            </div>
+            <div class="option">
+               <input type="radio" id="cc-ac" name="account_type" value="cc">
+               <label for="cc-ac">CC A/c</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{% url 'setup' %}" class="btn btn-danger exit">Exit</a>
+         </form>
+      </div>
+   </body>
+</html>
+{% block content %}
+{% endblock %}

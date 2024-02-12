@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/signup.css' %}">
+<script src="{% static 'assets/js/signup.js' %}"></script>
+<div class="container right-panel-active">
+   <div class="container__form container--signup">
+      <form action="" class="form" id="form1" method="post">
+         {% csrf_token %}
+         <h2 class="form__title">Sign Up</h2>
+         <input type="text" placeholder="User" class="input" name="username" id="username" required />
+         <input type="email" placeholder="Email" class="input" name="email" id="email" required />
+         <input type="password" placeholder="Password" class="input" name="password1" id="password1" required />
+         <input type="confarm password" placeholder="confarm Password" name="password2" class="input" id="password2"  required />
+         <button type="submit" class="btn">Sign Up</button>
+      </form>
+   </div>
+   <div class="container__overlay">
+      <div class="overlay">
+         <div class="overlay__panel overlay--left">
+            <a href="{% url 'login' %}"><button  class="btn" id="signIn">LOGIN</button></a>
+         </div>
+         <div class="overlay__panel overlay--right">
+            <button class="btn" id="signUp">Sign Up</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% block content %}
+{% endblock %}

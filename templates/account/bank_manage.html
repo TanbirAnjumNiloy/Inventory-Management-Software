@@ -1,0 +1,56 @@
+{% load static %}
+<script src="{% static 'assets/js/account/bank_manage.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/bank_manage.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bank Mange</title>
+   </head>
+   <body>
+      <div class="form-container">
+         <h2>Bank Deposits</h2>
+         <form method="post" action="{% url 'bank_manage' %}?bank={{bank_id}}">
+            {% csrf_token %}
+            <div class="form-group">
+               <label for="branch">Branch</label>
+               <select id="branch" name="bank" onchange="updateBankNameAndAccountNumber()">
+                  <option value="">Select Branch</option>
+                  {% for bank in banks %}
+                  <option value="{{ bank.id }}" data-bank-name="{{ bank.bank_name }}" data-account-no="{{ bank.account_no }}" data-current-balance="{{ bank.current_balance|default:0 }}">{{ bank.branch }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="form-group">
+               <label for="bank_name">Bank Name</label>
+               <select id="bank_name" name="bank_name" >
+                  <option value="">Select Bank</option>
+                  {% for bank in banks %}
+                  <option value="{{ bank.bank_name }}">{{ bank.bank_name }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="form-group">
+               <label for="account_number">A/c No</label>
+               <select id="account_number" name="account_number" >
+                  <option value="">Select Account Number</option>
+                  {% for bank in banks %}
+                  <option value="{{ bank.account_no }}">{{ bank.account_no }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="form-group">
+               <label for="current_balance">Current Total Balance</label>
+               <input type="number" id="current_balance" name="current_balance" value="{% if current_balance %}{{ current_balance }}{% endif %}" placeholder="Enter Current Balance" readonly>
+            </div>
+            <div class="form-group">
+               <label for="amount">Amount</label>
+               <input type="number" id="amount" name="amount" placeholder="Enter Amount">
+            </div>
+            <button type="submit">Save</button>
+            <button type="button" class="logout-button" onclick="location.href='{% url 'account' %}';">Exit</button>
+         </form>
+      </div>
+   </body>
+</html>

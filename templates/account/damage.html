@@ -1,0 +1,83 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/damage.css' %}">
+<script src="{% static 'assets/js/account/damage.js' %}"></script>
+<form action="{% url 'damage' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="dropdown-container">
+      <div class="dropdown-wrapper">
+         <label for="supplier" class="label">Supplier:</label>
+         <select id="supplier" name="supplier" class="select">
+            {% for supplier in suppliers %}
+            <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="dropdown-wrapper">
+         <label for="brand" class="label">Brand:</label>
+         <select id="brand" name="brand" class="select">
+            {% for brand in brands %}
+            <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-group">
+         <button type="submit" class="buttony">Show Products</button>
+         <button type="button" class="logout-button" onclick="location.href='{% url 'account' %}';">Exit</button>
+      </div>
+   </div>
+</form>
+{% if products %}
+<form action="{% url 'damagecart' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="form-group">
+      <label for="date" class="label" required>Date:</label>
+      <input type="date" id="date" name="date" class="input" required>
+      <label for="invoicing" class="label" required>Memo NO:</label>
+      <input style="text-align: center;" type="text" id="invoicing" name="invoicing" value="{{ next_mem_number }}" class="input">
+   </div>
+   <table class="table">
+      <thead>
+         <tr>
+            <th style="text-align: center;" >
+               <input type="checkbox" id="master-checkbox" onClick="pro_checkall();" class="checkbox">
+            </th>
+            <th style="text-align: center;" >Name</th>
+            <th style="text-align: center;" >Sales  Price</th>
+            <th style="text-align: center;" >Qty</th>
+            <th style="text-align: center;" >Purchase Price</th>
+            <th style="text-align: center;" > Sales Amount  </th>
+            <th style="text-align: center;" > Purchase  Amount  </th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for product in products %}
+         <tr>
+            <td style="text-align: center;" >
+               <input type="checkbox" name="product_ids[]" value="{{ product.id }}" class="checkbox checkbox-item">
+            </td>
+            <td style="text-align: center;" >{{ product.name }} {{ product.size }}</td>
+            <td style="text-align: center;">
+               <input style="text-align: center;" id="sell_price_{{ product.id }}" step="any" type="number" name="" value="{{ product.current_pricee }}" class="input">
+            </td>
+            <td style="text-align: center;">
+               <input style="text-align: center;" id="qty_{{ product.id }}"  step="any" type="number" name="price_{{ product.id }}" value="{{ product.price }}" class="input">
+            </td>
+            <td style="text-align: center;">
+               <input style="text-align: center;" step="any" type="number" name="{{ product.id }}_price" value="{{ product.current_price }}" class="input" id="{{ product.id }}_price">
+            </td>
+            <td style="text-align: center;">
+               <input style="text-align: center;" id="sales_amount_{{ product.id }}" step="any" type="number" name="" value="00" class="input">
+            </td>
+            <td style="text-align: center;">
+               <input style="text-align: center;" id="purchase_amount_{{ product.id }}" step="any" type="number" name="" value="00" class="input">
+            </td>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <div class="form-group">
+      <button type="submit" name="save_price" value="true" class="button">Add to Cart</button>
+   </div>
+</form>
+{% endif %}

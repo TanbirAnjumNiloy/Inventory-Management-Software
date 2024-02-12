@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lifting Update</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+			background-color: #f9f9f9;
+		}
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+		main {
+			max-width: 1200px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 10px #ccc;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 20px;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 0;
+		}
+		table {
+			margin-top: 20px;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #f2f2f2;
+			font-weight: normal;
+			text-align: center;
+			vertical-align: middle;
+		}
+		td {
+			vertical-align: middle;
+		}
+		input[type=text] {
+			padding: 10px;
+			margin-right: 10px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #ccc;
+			width: 300px;
+			max-width: 100%;
+		}
+		button[type=submit] {
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+		button[type=submit]:hover {
+			background-color: #3e8e41;
+		}
+        .edit-button {
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+		
+        .edit-button:hover {
+            background-color: #3e8e41;
+        }
+        tfoot td {
+            font-weight: bold;
+            text-align: center;
+        }
+		input[type=text] {
+			padding: 8px;
+			margin-right: 10px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #ccc;
+			width: 100px; /* adjust the width to your liking */
+			max-width: 100%;
+		}
+		
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Lifting Update</h1>
+	</header>
+	<main>
+		<form method="post">
+			{% csrf_token %}
+			<label for="invoice-number">Lifting Invoice Number:</label> <br>
+			<input type="text" id="invoice-number" name="invoice_number"> <br>
+			<button type="submit">Search</button>
+			<br>
+			<button type="submit"><a href="{% url 'control' %}">Exit</a></button>
+			
+		  </form>
+
+
+		  {% if lifting %}
+		  <h2>Lifting Invoice Number: {{ lifting.invoicing }}</h2>
+		  
+		  <table>
+			<thead>
+			  <tr>
+				<th style="text-align: center;">SL NO</th>
+				<th style="text-align: center;">Supplier</th>
+				<th style="text-align: center;">Brand</th>
+				<th style="text-align: center;">Date</th>
+				<th style="text-align: center;">Invoice Number</th>
+				<th style="text-align: center;">Product Name</th>
+				<th style="text-align: center;">Size</th>
+				<th style="text-align: center;">Lifting Qty</th>
+				<th style="text-align: center;">Purchase Price</th>
+				<th style="text-align: center;">Total Price</th>
+				<th style="text-align: center;">Action</th>                    
+			  </tr>
+			</thead>
+			<tbody>
+				{% for product, quantity, price, total_price, lifting in product_qty_price_total_list %}
+				<tr>
+				<td style="text-align: center;">{{ forloop.counter }}</td>
+				<td style="text-align: center;">{{ supplier.sname }}</td>
+				<td style="text-align: center;">{{ brand.name }}</td>
+				<td style="text-align: center;">{{ lifting.date }}</td>
+				<td style="text-align: center;">{{ lifting.invoicing }}</td>
+				<td style="text-align: center;">{{ product.name }}</td>
+				<td style="text-align: center;">{{ product.size }}</td>
+				<td><input style="text-align: center;" type="text" id="qty-{{ forloop.counter }}" name="qty" value="{{ quantity }}" ></td>
+    			<td><input style="text-align: center;" type="text" id="price-{{ forloop.counter }}" name="price" value="{{ price }}" ></td>
+				<td style="text-align: center;">{{ total_price }}</td>
+				<td style="text-align: center;"><button class="edit-button" data-lifting-id="{{ lifting.id }}" data-index="{{ forloop.counter }}">Update</button></td>
+
+				</tr>
+				{% endfor %}
+
+
+				
+			</tbody>
+			<tfoot>
+			  <tr>
+				<td colspan="5" style="text-align: center;"><b>Total:</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="text-align: center;" id="total-sales-value">$20,250</td>
+				<td></td>
+			  </tr>
+			</tfoot>
+		  </table>
+		
+		  <script>
+			// Get all total price elements
+			const totalPrices = document.querySelectorAll('td:nth-child(10)');
+		
+			// Initialize total sales value
+			let totalSales = 0;
+		
+			// Loop through all total price elements
+			totalPrices.forEach(totalPrice => {
+			  // Add the current total price to total sales
+			  totalSales += parseFloat(totalPrice.textContent);
+			});
+		
+			// Set the total sales value
+			document.getElementById('total-sales-value').textContent = `${totalSales}/-`;
+
+
+
+			function updateAllProducts() {
+				const totalPrices = document.querySelectorAll('td:nth-child(10)');
+				let totalSales = 0;
+			
+				totalPrices.forEach((totalPrice, index) => {
+				  const qtyInput = document.getElementById(`qty-${index + 1}`);
+				  const priceInput = document.getElementById(`price-${index + 1}`);
+			
+				  const newTotalPrice = parseFloat(qtyInput.value) * parseFloat(priceInput.value);
+				  totalPrice.textContent = newTotalPrice.toFixed(2);
+			
+				  totalSales += parseFloat(totalPrice.textContent);
+				});
+			
+				document.getElementById('total-sales-value').textContent = `${totalSales.toFixed(2)}/-`;
+			  }
+			
+			  document.querySelectorAll('.edit-button').forEach(button => {
+				button.addEventListener('click', async () => {
+				  const index = button.dataset.index;
+				  const lifting_id = button.dataset.liftingId;
+			
+				  const response = await fetch('{% url "update_lifting" %}', {
+					method: 'POST',
+					headers: {
+					  'Content-Type': 'application/json',
+					  'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value,
+					},
+					body: JSON.stringify({
+					  lifting_id: lifting_id,
+					  new_qty: parseFloat(document.getElementById(`qty-${index}`).value),
+					  new_price: parseFloat(document.getElementById(`price-${index}`).value),
+					}),
+				  });
+			
+				  const result = await response.json();
+				  if (result.status === 'success') {
+					console.log('Successfully updated Lifting item');
+					updateAllProducts(); // Update all products in the table
+				  } else {
+					console.log('Failed to update Lifting item');
+				  }
+				});
+			  });
+			
+			  updateAllProducts(); // Update all products in the table when the page loads
+
+
+
+			
+		  </script>
+		
+		{% else %}
+		  <p>No lifting found for the given invoice number.</p>
+		{% endif %}
+		
+    

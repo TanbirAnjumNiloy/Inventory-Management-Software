@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Rate Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tfoot td {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sales Rate Result</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Product Name</th>
+                    <th>Qty</th>
+                    <th>Sales Rate</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales_data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ sale.product__name }} {{ sale.product__size }}</td>
+                        <td>{{ sale.total_qty }}</td> <!-- Change this line -->
+                        <td>{{ sale.sell_price__price }}</td>
+                        <td>{{ sale.total_product_price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">Total Sum Balance</td> <!-- Change this line -->
+                    <td>{{ total_sum }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+
+
+</html>

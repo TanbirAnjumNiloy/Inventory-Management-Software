@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Table</title>
+    <style>
+        /* Style the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Table header */
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Table data */
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        /* Add a background color to alternate rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invoice Table</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Date</th>
+                <th>Invoice Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for damage in damage_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ damage.date }}</td>
+                    <td><a href="{% url 'damagewithtable' damage.mem_number %}">{{ damage.mem_number }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    
+    </body>
+    
+</html>

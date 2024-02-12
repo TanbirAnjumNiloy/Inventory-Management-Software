@@ -1,0 +1,60 @@
+<style>
+    #supplier-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      #supplier-table th, #supplier-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      #supplier-table th {
+        background-color: #f2f2f2;
+      }
+      
+      #supplier-table td button {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      
+      #supplier-table td button:hover {
+        background-color: #3e8e41;
+      }
+      
+</style>
+
+
+<table id="supplier-table">
+    <thead>
+      <tr>
+        <th>SlNo</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Balance</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in data %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{data.sname}}</td>
+        <td>{{data.saddress}}</td>
+        <td>{{data.smobile}}</td>
+        <td>{{data.sbalance}}</td>
+        <td><button>Edit</button></td>
+      </tr>
+      {% endfor %}
+      <tr>
+     
+      <!-- add more rows as needed -->
+    </tbody>
+  </table>
+  

@@ -1,0 +1,70 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/supplierspayment.css' %}">
+<script src="{% static 'assets/js/account/supplierspayment.js' %}"></script>
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Suppliers Payment</title>
+   </head>
+   <body>
+      <form action="{% url 'supplierspayment' %}" method="POST">
+         {% csrf_token %}
+         {% if error_message %}
+         <div style="color: red;">
+            {{ error_message }}
+         </div>
+         {% endif %}
+         <div>
+            <label for="supplier">Supplier:</label>
+            <select id="supplier" name="supplier">
+               {% for supplier in suppliers %}
+               <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label for="branch">Branch:</label>
+            <select id="branch" name="bank" onchange="updateBankNameAndAccountNumber()">
+               <option value="">Select Branch</option>
+               {% for bank in banks %}
+               <option value="{{ bank.id }}" data-bank-name="{{ bank.bank_name }}" data-account-no="{{ bank.account_no }}" data-current-balance="{{ bank.current_balance|default:0 }}">{{ bank.branch }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label for="bank">Bank Name:</label>
+            <select id="bank_name" name="bank_name" >
+               <option value="">Select Bank</option>
+               {% for bank in banks %}
+               <option value="{{ bank.bank_name }}">{{ bank.bank_name }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label for="ac_no">A/c No:</label>
+            <select id="account_number" name="account_number" >
+               <option value="">Select Account Number</option>
+               {% for bank in banks %}
+               <option value="{{ bank.account_no }}">{{ bank.account_no }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label for="current_balance">Current Total Balance:</label>
+            <input type="text" id="current_balance" name="current_balance" required>
+         </div>
+         <div>
+            <label for="amount">Amount:</label>
+            <input type="text" id="amount" name="amount" required>
+         </div>
+         <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+         </div>
+         <div>
+            <input type="submit" value="Save">
+            <a href="{% url 'account' %}"><button type="button">Exit</button></a>
+         </div>
+      </form>
+   </body>
+</html>

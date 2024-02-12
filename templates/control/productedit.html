@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+
+<style>
+
+
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      th,
+      td {
+        padding: -10px;
+        border: 3px solid #ccc;
+        text-align: center;
+        width: 30px;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+        
+      }
+      
+      input[type="text"] {
+        width: 20%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      input {
+        text-align: center;
+        padding: 5px;
+        margin: 5px;
+        width: 60px;
+      }
+      
+      button.edit-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      button.edit-button:hover {
+        background-color: #3e8e41;
+      }
+      
+      
+    
+      
+</style>
+<body>
+    <form method="POST" action="{% url 'productedit' product_id=product.id %}">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    
+                    <th>Product Name</th>
+                    <th>Size</th>
+                    <th>Supplier</th>
+                    <th>Commission</th>
+                    <th>Brand Name</th>
+                    <th>Action</th>
+                    <th>Back</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input value="{{ product.name }}" name="name" ></td>
+                    <td> <input value="{{ product.size }}" name="size" ></td>
+                    <td>{{ product.supplier.sname }}</td>
+                    <td> <input value="{{ product.commission }}" name="commission" ></td>
+                    <td>{{ product.brand.name }}</td>
+                    <td><button type="submit" class="edit-button">Update</button></td>
+                    <td><a href="{% url 'product_list' %}"><button type="button" class="edit-button">Back</button></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .total-row {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>DSR Name</th>
+                <th>Car Cost</th>
+                <th>Car Date</th>
+                <th>DSR Bill</th>
+                <th>Toll</th>
+                <th>Other Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cost in dailycost %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ cost.dsr.name }}</td>
+                    <td>{{ cost.date }}</td>
+                    <td>{{ cost.carcost }}</td>
+                    <td>{{ cost.dsrbill }}</td>
+                    <td>{{ cost.toll }}</td>
+                    <td>{{ cost.othercost }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+        <tfoot>
+            <tr class="total-row">
+                <td colspan="3">Total:</td>
+                <td id="total-car-cost">{{ total_car_cost|default:0 }}</td>
+                <td id="total-dsr-bill">{{ total_dsr_bill|default:0 }}</td>
+                <td id="total-toll">{{ total_toll|default:0 }}</td>
+                <td id="total-other-cost">{{ total_other_cost|default:0 }}</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="5">Total Sum:</td>
+                <td colspan="3" id="total-sum">{{ total_car_cost|default:0|add:total_dsr_bill|default:0|add:total_toll|default:0|add:total_other_cost|default:0 }}</td>
+            </tr>
+        </tfoot>
+        
+    </table>
+</body>
+</html>

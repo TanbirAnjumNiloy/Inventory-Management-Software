@@ -1,0 +1,86 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/assets.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Assets Form</title>
+   </head>
+   <body>
+      <div class="container">
+         <h2>Assets Form</h2>
+         <form method="post" action="{% url 'assets' %}">
+            {% csrf_token %}
+            <div>
+               <label for="date">Date:</label>
+               <input type="date" id="date" name="date" required>
+            </div>
+            <div>
+               <label for="shop_due">Shop Due:</label>
+               <input type="number" id="shop_due" value="00" name="shop_due" required>
+            </div>
+            <div>
+               <label for="shop_due">Rashed:</label>
+               <input type="number" id="rashed" value="00" name="rashed" required>
+            </div>
+            <div>
+               <label for="shop_due"> Bazar:</label>
+               <input type="number" id="bazar" value="00" name="bazar" required>
+            </div>
+            <div>
+               <label for="shop_due">Tso:</label>
+               <input type="number" id="tso" value="00" name="tso" required>
+            </div>
+            <div>
+               <label for="shop_due"> Milon:</label>
+               <input type="number" id="milon" value="00" name="milon" required>
+            </div>
+            <div>
+               <label for="shop_due"> Check:</label>
+               <input type="number" id="check" value="00" name="check" required>
+            </div>
+            <div>
+               <label for="shop_due">Mehdi Sr:</label>
+               <input type="number" id="mehdisr" value="00" name="mehdisr" required>
+            </div>
+            <div>
+               <label for="shop_due"> Card:</label>
+               <input type="number" id="card" value="00" name="card" required>
+            </div>
+            <div>
+               <label for="shop_due"> Damage:</label>
+               <input type="number" id="damage" value="00" name="damage" required>
+            </div>
+            <div>
+               <label for="shop_due">Nitrogen Damage:</label>
+               <input type="number" id="nitrogen" value="00" name="nitrogen" required>
+            </div>
+            <div>
+               <label for="shop_due">Robiul sr:</label>
+               <input type="number" id="robiul" value="00" name="robiul" required>
+            </div>
+            <div>
+               <label for="shop_due">Pubali Bank:</label>
+               <input type="number" id="pubalibank" value="00" name="pubalibank" required>
+            </div>
+            <div>
+               <label for="shop_due">Robiul Dsr:</label>
+               <input type="number" id="robiuldsr" value="00" name="robiuldsr" required>
+            </div>
+            <div>
+               <label for="shop_due">Stock:</label>
+               <input type="number" id="stock" value="00" name="stock" required>
+            </div>
+            <div>
+               <label for="shop_due">Other:</label>
+               <input type="number" id="other" value="00" name="other" required>
+            </div>
+            <div>
+               <input type="submit" value="Submit">
+               <input type="button" value="Exit" onclick="location.href='{%url 'account' %}'"> 
+            </div>
+         </form>
+      </div>
+   </body>
+</html>

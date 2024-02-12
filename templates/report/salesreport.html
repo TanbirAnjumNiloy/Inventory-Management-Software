@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SALES REPORT</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f5f5f5;
+				margin: 0;
+				padding: 0;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 20px auto;
+				background-color: #ffffff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			fieldset {
+				border: 1px solid #cccccc;
+				padding: 20px;
+				margin-bottom: 20px;
+			}
+
+			legend {
+				font-weight: bold;
+				padding: 5px;
+			}
+
+			form {
+				width: 100%;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			select,
+			input[type="date"] {
+				width: 100%;
+				padding: 5px;
+				font-size: 14px;
+				border: 1px solid #cccccc;
+				border-radius: 4px;
+			}
+
+			input[type="submit"],
+			input[type="button"] {
+				background-color: #007FFF;
+				color: #ffffff;
+				padding: 10px 20px;
+				font-size: 14px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				text-align: center;
+				justify-content: center;
+			}
+
+			input[type="submit"]:hover,
+			input[type="button"]:hover {
+				background-color: #0056b3;
+			}
+
+			.button-container {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+<!-- This is a Product Wise  Sales Report -->
+
+		<div class="container">
+			<div id="respond">
+				<fieldset>
+					<legend>:: Sales Report - Product Wise ::</legend>
+					<form method="GET" action="{% url 'salesreportresult' %}">
+
+						<table>
+							<tr>
+								<td>Supplier All:</td>
+								<td>
+									<select id="supplier" name="supplier">
+										{% for supplier in suppliers %}
+										<option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+										{% endfor %}
+									</select>
+								</td>
+								<td align="right"> Brand All: </td>
+								<td>
+									<select id="brand" name="brand">
+										{% for brand in brands %}
+										<option value="{{ brand.id }}">{{ brand.name }}</option>
+										{% endfor %}
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>From:</td>
+								<td>
+									<input type="date" id="from-date" name="from-date">
+								</td>
+
+								<td style="text-align: center;">To:</td>
+								<td>
+									<input type="date" id="to-date" name="to-date">
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+									<div class="button-container">
+										<input type="submit" value="Search" name="search">
+										<a href="{% url 'report' %}"><input type="button" value="Exit"></a>
+
+
+
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+		</div>
+
+        <!--  Product Wise  Sales Report End -->
+
+
+
+
+
+
+
+ <!--  This is  DSR Wise  Sales Report  -->
+
+
+	<div class="container">
+		<div id="respond">
+			<fieldset>
+				<legend>:: Sales Report - DSR Wise ::</legend>
+				<form method="GET" action="{% url 'dsrsalesreport' %}">
+
+
+
+					<table>
+						<tr>
+							<td>Supplier All:</td>
+							<td>
+								<select id="supplier" name="supplier">
+									{% for supplier in suppliers %}
+									<option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+									{% endfor %}
+								</select>
+							</td>
+							<td align="right"> Brand All: </td>
+							<td>
+								<select id="brand" name="brand">
+									{% for brand in brands %}
+									<option value="{{ brand.id }}">{{ brand.name }}</option>
+									{% endfor %}
+								</select>
+							</td>
+
+
+							<td align="right"> DSR All: </td>
+							<td>
+								<select id="dsr" name="dsr">
+									{% for dsr in dsrs %}
+									<option value="{{ dsr.id }}">{{ dsr.name }}</option>
+									{% endfor %}
+								</select>
+
+							</td>
+
+
+
+						</tr>
+						<tr>
+							<td>From:</td>
+							<td>
+								<input type="date" id="from-date" name="from-date">
+							</td>
+
+							<td style="text-align: center;">To:</td>
+							<td>
+								<input type="date" id="to-date" name="to-date">
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td colspan="3">
+								<div class="button-container">
+									<input type="submit" value="Search" name="search">
+									<a href="{% url 'report' %}"><input type="button" value="Exit"></a>
+
+
+
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</fieldset>
+		</div>
+	</div>
+
+    
+ <!--   DSR Wise  Sales Report End   -->
+
+
+
+
+
+
+
+ <!--  This is   Market  Wise  Sales Report    -->
+
+
+ 
+ <div class="container">
+    <div id="respond">
+        <fieldset>
+            <legend>:: Sales Report - Market Wise ::</legend>
+            <form method="GET" action="{% url 'market_salesreport' %}">   
+
+
+
+                <table>
+                    <tr>
+                        <td>Supplier All:</td>
+                        <td>
+                            <select id="supplier" name="supplier">
+                                {% for supplier in suppliers %}
+                                <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td align="right"> Brand All: </td>
+                        <td>
+                            <select id="brand" name="brand">
+                                {% for brand in brands %}
+                                <option value="{{ brand.id }}">{{ brand.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+
+
+                        <td align="right"> Market All: </td>
+                        <td>
+                            <select id="market" name="market">
+                                {% for market in markets %}
+                                <option value="{{ market.id }}">{{ market.area }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td>From:</td>
+                        <td>
+                            <input type="date" id="from-date" name="from-date">
+                        </td>
+
+                        <td style="text-align: center;">To:</td>
+                        <td>
+                            <input type="date" id="to-date" name="to-date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3">
+                            <div class="button-container">
+                                <input type="submit" value="Search" name="search">
+                                <a href="{% url 'report' %}"><input type="button" value="Exit"></a>
+
+
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
+    </div>
+</div>
+
+
+
+
+<!--  This is  DSR invoice  Wise  Sales Report  -->
+
+
+<div class="container">
+	<div id="respond">
+		<fieldset>
+			<legend>:: Sales Report - DSR Invoice  Wise ::</legend>
+			<form method="GET" action="{% url 'dsrsalesreportinvoice' %}">
+
+
+
+				<table>
+					<tr>
+						<td>Supplier All:</td>
+						<td>
+							<select id="supplier" name="supplier">
+								{% for supplier in suppliers %}
+								<option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+								{% endfor %}
+							</select>
+						</td>
+						<td align="right"> Brand All: </td>
+						<td>
+							<select id="brand" name="brand">
+								{% for brand in brands %}
+								<option value="{{ brand.id }}">{{ brand.name }}</option>
+								{% endfor %}
+							</select>
+						</td>
+
+
+						<td align="right"> DSR All: </td>
+						<td>
+							<select id="dsr" name="dsr">
+								{% for dsr in dsrs %}
+								<option value="{{ dsr.id }}">{{ dsr.name }}</option>
+								{% endfor %}
+							</select>
+
+						</td>
+
+
+
+					</tr>
+					<tr>
+						<td>From:</td>
+						<td>
+							<input type="date" id="from-date" name="from-date">
+						</td>
+
+						<td style="text-align: center;">To:</td>
+						<td>
+							<input type="date" id="to-date" name="to-date">
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="3">
+							<div class="button-container">
+								<input type="submit" value="Search" name="search">
+								<a href="{% url 'report' %}"><input type="button" value="Exit"></a>
+
+
+
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	</div>
+</div>
+
+
+<!--   DSR invoice  Wise  Sales Report End   -->
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

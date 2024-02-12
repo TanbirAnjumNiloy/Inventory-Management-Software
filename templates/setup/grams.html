@@ -1,0 +1,64 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/grams.css' %}">
+<script src="{% static 'assets/js/setup/grams.js' %}"></script>
+<form action="{% url 'grams' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="dropdown-container">
+      <div class="dropdown-wrapper">
+         <label for="supplier" class="label">Supplier:</label>
+         <select id="supplier" name="supplier" class="select">
+            {% for supplier in suppliers %}
+            <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="dropdown-wrapper">
+         <label for="brand" class="label">Brand:</label>
+         <select id="brand" name="brand" class="select">
+            {% for brand in brands %}
+            <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-group">
+         <button type="submit" name="show_products" value="true" class="buttony">Show Products</button>
+         <button type="button" class="logout-button" onclick="location.href='{% url 'setup' %}';">Exit</button>
+      </div>
+   </div>
+</form>
+{% if products %}
+<form action="{% url 'grams' %}" method="post" class="form">
+   {% csrf_token %}
+   <table class="table">
+      <thead>
+         <tr>
+            <th>
+               <input type="checkbox" id="master-checkbox" onClick="pro_checkall();" class="checkbox">
+            </th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Grams</th>
+            <th>Current Grams</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for product in products %}
+         <tr>
+            <td>
+               <input type="checkbox" name="product_ids[]" value="{{ product.id }}" class="checkbox checkbox-item">
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.size }}</td>
+            <td><input type="number" name="grams_{{ product.id }}" value="{{ product.gram_setups.first.grams|default:0 }}" step="any" class="input"></td>
+            <td><input type="number" name="current_grams_{{ product.id }}" value="{{ product.gram_setups.first.current_grams|default:0 }}" step="any" class="input"></td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <div class="form-group">
+      <button type="submit" name="save_price" value="true" class="button">Save</button>
+   </div>
+</form>
+{% endif %}
+{% block content %}
+{% endblock %}

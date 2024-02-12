@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/collection.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Collection  Form</title>
+   </head>
+   <body>
+      <div class="form-container">
+         <form action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+               <label for="collection-man">Collection Man:</label>
+               <select id="collection-man" name="collection-man">
+                  {% for collection_man in collection_men %}
+                  <option value="{{ collection_man.id }}">{{ collection_man.name }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="form-group">
+               <label for="date">Date:</label>
+               <input type="date" id="date" name="date">
+            </div>
+            <div class="form-group">
+               <label for="transaction-type">Transaction Type:</label>
+               <select id="transaction-type" name="transaction-type">
+                  <option value="deposit">বাকি</option>
+                  <option value="withdrawal">জমা</option>
+               </select>
+            </div>
+            <div class="form-group">
+               <label for="amount">Amount:</label>
+               <input type="number" id="amount" name="amount">
+            </div>
+            <div class="form-group">
+               <label for="amount">Current Amount:</label>
+               <input type="number" name="current-amount" value="{{ current_amount }}" readonly>
+            </div>
+            <div class="btn-group">
+               <button type="submit">Submit</button>
+               <a href="{% url 'account' %}">
+               <button type="button" onclick="window.close();">Exit</button>
+               </a>
+            </div>
+         </form>
+      </div>
+   </body>
+</html>

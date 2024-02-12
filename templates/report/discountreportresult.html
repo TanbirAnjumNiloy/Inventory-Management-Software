@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>SL No</th>
+                <th>Supplies</th>
+                <th>Brand</th>
+                <th>Date</th>
+                <th>SR Name</th>
+                <th>Programme Name</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acdiccount in acdiccounts %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ acdiccount.supplier }}</td>
+                    <td>{{ acdiccount.brand }}</td>
+                    <td>{{ acdiccount.date }}</td>
+                    <td>{{ acdiccount.sr }}</td>
+                    <td>{{ acdiccount.discount.name }}</td> <!-- Display the program name from the related Discountsetup model -->
+                    <td>{{ acdiccount.amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+        
+        <tfoot>
+    <tr class="total-row">
+        <td colspan="6" style="text-align: right;">Total:</td>
+        <td>{{ total_amount }}</td>
+    </tr>
+</tfoot>
+    </table>
+</body>
+</html>

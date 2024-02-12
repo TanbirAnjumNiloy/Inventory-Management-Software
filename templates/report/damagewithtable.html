@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Table</title>
+    <style>
+        /* CSS for styling the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Product Table</h2>
+
+<!-- HTML for the table -->
+<table>
+    <tbody>
+        {% for damage in damage_data_for_table %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ damage.product.name }} ({{ damage.product.size }})</td>
+                <td>{{ damage.qty }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+
+</body>
+</html>

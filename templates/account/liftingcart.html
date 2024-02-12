@@ -1,0 +1,57 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/liftingcart.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>CART</title>
+   </head>
+   <body>
+      <form method="POST" action="{% url 'finalize' %}">
+         {% csrf_token %}
+         <input type="hidden" name="invoicing" value="{{ products.0.invoicing }}">
+         <input type="hidden" name="date" value="{{ products.0.date }}">
+         <table>
+            <thead>
+               <tr>
+                  <th style="text-align: center;" >SL No.</th>
+                  <th style="text-align: center;">Date</th>
+                  <th style="text-align: center;" >Invoice</th>
+                  <th style="text-align: center;" >Product Name</th>
+                  <th style="text-align: center;" >Product Size</th>
+                  <th style="text-align: center;" >Qty</th>
+                  <th style="text-align: center;" > Purchase Price</th>
+                  <th style="text-align: center;" >Total</th>
+                  <th style="text-align: center;" >Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for product in products %}
+               <tr>
+                  <td style="text-align: center;">{{ forloop.counter }}</td>
+                  <td style="text-align: center;">{{ product.date }}</td>
+                  <td style="text-align: center;">{{ product.invoicing }}</td>
+                  <td style="text-align: center;">{{ product.name }}</td>
+                  <td style="text-align: center;">{{ product.size }}</td>
+                  <td style="text-align: center;">{{ product.qty }}</td>
+                  <td style="text-align: center;">{{ product.price }}</td>
+                  <td style="text-align: center;">{{ product.total }}</td>
+                  <td style="text-align: center;">
+                     <a href="{% url 'remove_from_cart' product.id %}" class="btn btn-danger">Remove</a>
+                  </td>
+               </tr>
+               {% endfor %}
+            </tbody>
+            <tfoot>
+               <tr class="total-row">
+                  <td colspan="7">Total Price:</td>
+                  <td style="text-align: center;" id="total-sales-value">{{ total_sum }}</td>
+                  <td></td>
+               </tr>
+            </tfoot>
+         </table>
+         <input type="submit" value="Final" class="final-button">
+      </form>
+   </body>
+</html>

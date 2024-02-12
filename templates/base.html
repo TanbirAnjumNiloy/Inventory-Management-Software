@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/base.css' %}">
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <title>Inventory Project</title>
+   </head>
+   <body>
+      <nav>
+         <ul>
+            <li><a href="{% url 'setup' %}"><b>Setup</b></a></li>
+            <li><a href="{% url 'account' %}"><b>Account</b></a></li>
+            <li><a href="{% url 'report' %}"><b>Analyses</b></a></li>
+            <li><a href="{% url 'control' %}"><b>Control Panel</b></a></li>
+         </ul>
+         <a href="{% url 'logout' %}"><button id="logout-button">Logout</button></a>
+      </nav>
+      <main>
+      </main>
+      <script src="script.js"></script>
+   </body>
+</html>
+<script type="text/javascript">
+   const logoutButton = document.getElementById("logout-button");
+   logout
+   
+   
+</script>
+{% block content %}
+{% endblock %}

@@ -1,0 +1,106 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/product_name.css' %}">
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="style.css">
+   </head>
+   <body>
+      <fieldset>
+         <legend> ## Product Name Setup ## </legend>
+         <p id="brand-message" style="color: red; display: none;">Select Current Brand Name</p>
+         <form action="{% url 'product_name' %}" method="post" id="personal_details">
+            {% csrf_token %}
+            <table cellspacing="5" id="product-table">
+               <tbody>
+                  <tr>
+                     <td >Product Name:</td>
+                     <td><input type="text" name="name" id="product_name" placeholder="Product Name" size="12" required> </td>
+                     <td >Size:</td>
+                     <td><input type="text" name="size" id="size" placeholder="Product Size" size="12" required></td>
+                  </tr>
+                  <tr>
+                     <td >Supplier:</td>
+                     <td colspan="">
+                        <select name="supplier" id="supplier" required>
+                           <option value="">Select a supplier</option>
+                           {% for supplier in suppliers %}
+                           <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+                           {% endfor %}
+                        </select>
+                     </td>
+                     <td>Commission:</td>
+                     <td><input type="text" name="commission" id="commission" size="12" placeholder="Par Pis Com." value="00" ></td>
+                  </tr>
+                  <tr>
+                     <td >Brand Name:</td required>
+                     <td>
+                        <div id="sup_cat_load">
+                           <select name="brand" id="brand">
+                              <option value="">Select a brand</option>
+                              {% for brand in brands %}
+                              <option value="{{ brand.id }}">{{ brand.name }}</option>
+                              {% endfor %}
+                           </select>
+                           <div class="button-container">
+                              <button type="submit" class="home" value="Save Now" id="submit">Save</button>
+                              <a href="{% url 'setup' %}" class="logout-button">Exit</a>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </form>
+      </fieldset>
+   </body>
+</html>
+
+<script>
+   
+   
+const brandSelect = document.querySelector('#brand');
+const supplierSelect = document.querySelector('#supplier');
+const suppliers = supplierSelect.querySelectorAll('option');
+
+
+const setSelectedFromLocalStorage = () => {
+  const storedSupplier = localStorage.getItem('selectedSupplier');
+  const storedBrand = localStorage.getItem('selectedBrand');
+
+  if (storedSupplier) {
+    supplierSelect.value = storedSupplier;
+  }
+  if (storedBrand) {
+    brandSelect.value = storedBrand;
+  }
+};
+
+setSelectedFromLocalStorage();
+
+supplierSelect.addEventListener('change', () => {
+  localStorage.setItem('selectedSupplier', supplierSelect.value);
+});
+
+brandSelect.addEventListener('change', () => {
+  const brandId = brandSelect.value;
+  localStorage.setItem('selectedBrand', brandId);
+
+
+  suppliers.forEach(supplier => {
+    supplier.style.display = 'none';
+  });
+
+
+  suppliers.forEach(supplier => {
+    if (supplier.dataset.brand === brandId || !brandId) {
+      supplier.style.display = 'block';
+    }
+  });
+});
+
+</script>
+
+{% block content %}
+{% endblock %}

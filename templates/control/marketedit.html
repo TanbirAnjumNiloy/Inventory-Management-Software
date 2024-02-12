@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Market</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 6px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="POST" action="{% url 'marketedit' market_id=market.id %}">
+      {% csrf_token %}
+      <table>
+        <thead>
+          <tr>
+            <th>SlNo</th>
+            <th>Market/Area</th>
+            <th>Address</th>
+            <th>Mobile</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><input value="{{ market.area }}" name="area"></td>
+            <td><input value="{{ market.address }}" name="address"></td>
+            <td><input value="{{ market.number }}" name="number"></td>
+            <td><button type="submit">Update</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </body>
+</html>

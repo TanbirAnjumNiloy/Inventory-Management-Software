@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DSR List</title>
+    <style>
+      table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .edit-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .edit-button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Serial No.</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dsr in dsr %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ dsr.phone }}</td>
+          <td>{{ dsr.email }}</td>
+          <td>{{ dsr.address }}</td>
+          <td>
+            <a href="{% url 'dsredit' dsr_id=dsr.id %}">
+              <button class="edit-button">Update</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

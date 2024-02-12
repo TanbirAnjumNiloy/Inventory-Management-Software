@@ -1,0 +1,90 @@
+{% if grouped_liftings %}
+  <table>
+    <caption>Lifting Report</caption>
+    <thead>
+      <tr>
+        <th>SL NO</th>
+        <th>Date</th>
+        <th>Supplier Name</th>
+        <th>invoicing</th>
+        <th>Product Name</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Total Product Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoicing, liftings in grouped_liftings.items %}
+        {% for lifting in liftings %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ lifting.date }}</td>
+            <td>{{ lifting.product.supplier.sname }}</td>
+            <td>{{ lifting.invoicing }}</td>
+            <td>{{ lifting.product.name }} {{ lifting.product.size }}</td>
+            <td>{{ lifting.quantity }}</td>
+            <td>{{ lifting.Doprice }}</td>
+            <td>{{ lifting.total_amount }}</td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7" style="text-align: center;"><strong>Total Product Value:</strong></td>
+        <td><strong>{{ total_product_value }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+{% else %}
+  <p>No lift records found.</p>
+{% endif %}
+
+
+
+
+  
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    caption {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  
+    th,
+    td {
+      text-align: left;
+      padding: 10px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      text-align: center;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      text-align: center;
+    }
+  
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+  
+    tfoot td {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top: 10px;
+    }
+  
+    tfoot td:last-child {
+      font-size: 20px;
+      text-align: center;
+    }
+  </style>
+  

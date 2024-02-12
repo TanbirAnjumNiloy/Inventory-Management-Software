@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/setup.css' %}">
+<div class="container">
+   <div>
+      <a href="{% url 'suppliers_setup' %}">
+         <img src="{% static 'assets/img/suppliers-setup-icon.png' %}" alt="Suppliers Setup icon">
+         <h2>Suppliers Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'brand_setup' %}">
+         <img src="{% static 'assets/img/brand-setup-icon.png'  %}" alt="Brand Setup icon">
+         <h2>Brand Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'product_name' %}">
+         <img src="{% static 'assets/img/product-name-icon.png' %}" alt="Product Name icon">
+         <h2>Product Name</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'market_setup' %}">
+         <img src="{% static 'assets/img/market-setup-icon.png' %}" alt="Market Setup icon">
+         <h2>Market Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'bank_setup' %}">
+         <img src="{% static 'assets/img/bank-setup-icon.png' %}" alt="Bank Setup icon">
+         <h2>Bank Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'do_setup' %}">
+         <img src="{% static 'assets/img/do-rate-setup-icon.png' %}" alt="DO Rate Setup icon">
+         <h2>DO Rate Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'sell_setup' %}">
+         <img src="{% static 'assets/img/sell-rate-setup-icon.png' %}" alt="Sell Rate Setup icon">
+         <h2>Sell Rate Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'dsr_setup' %}">
+         <img src="{% static 'assets/img/sales-man-setup-icon.png' %}" alt="sales man Setup icon">
+         <h2>DSR Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'salesmanager' %}">
+         <img src="{% static 'assets/img/seniorsales-man-setup-icon.png' %}" alt="sales man Setup icon">
+         <h2>SR Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'discountsetup' %}">
+         <img src="{% static 'assets/img/discount-setup-icon.png' %}" alt="sales man Setup icon">
+         <h2>Discount Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'collectionsetup' %}">
+         <img src="{% static 'assets/img/employee.png' %}" alt="sales man Setup icon">
+         <h2>Collection Man Setup</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'grams' %}">
+         <img src="{% static 'assets/img/weight.png' %}" alt="sales man Setup icon">
+         <h2>KG Setup</h2>
+      </a>
+   </div>
+</div>
+{% endblock %}

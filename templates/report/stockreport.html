@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Stock Report</title>
+      <style>
+         /* Add some basic styling to the table */
+         .table {
+         width: 100%;
+         border-collapse: collapse;
+         border: 1px solid #ddd;
+         }
+         /* Style the header row */
+         thead th {
+         background-color: #f2f2f2;
+         padding: 10px;
+         text-align: center;
+         font-weight: bold;
+         border: 1px solid #ddd;
+         }
+         /* Style the rows in the tbody */
+         tbody td {
+         padding: 10px;
+         text-align: center;
+         border: 1px solid #ddd;
+         }
+         /* Add some padding to the report header */
+         .report-header {
+         padding: 20px;
+         text-align: center;
+         }
+         /* Style the footer row */
+         tfoot td {
+         padding: 10px;
+         text-align: center;
+         font-weight: bold;
+         border: 1px solid #ddd;
+         }
+         /* Style the total cells */
+         tfoot b {
+         color: #e74c3c;
+         }
+         /* Highlight the hovered row */
+         tbody tr:hover {
+         background-color: #f2f2f2;
+         }
+      </style>
+   </head>
+   <body>
+      <!--- Section 1--->
+      <form action="" method="post" class="form" style="background-color: #f7f7f7; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+         {% csrf_token %}
+         <div class="dropdown-container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div class="dropdown-wrapper" style="flex-basis: 45%;">
+               <div class="label-group" style="margin-bottom: 5px;">
+                  <label for="supplier" class="label" style="font-weight: bold;">Supplier:</label>
+                  <select id="supplier" name="supplier" class="select" style="width: 100%; padding: 10px;">
+                     <!-- Adjust width and padding as needed -->
+                     {% for supplier in suppliers %}
+                     <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+                     {% endfor %}
+                  </select>
+               </div>
+               <div class="label-group">
+                  <label for="brand" class="label" style="font-weight: bold;">Brand:</label>
+                  <select id="brand" name="brand" class="select" style="width: 100%; padding: 10px;">
+                     <!-- Adjust width and padding as needed -->
+                     {% for brand in brands %}
+                     <option value="{{ brand.id }}">{{ brand.name }}</option>
+                     {% endfor %}
+                  </select>
+               </div>
+            </div>
+            <div class="dropdown-wrapper" style="flex-basis: 45%;">
+               <div class="label-group" style="margin-bottom: 10px;">
+                  <label for="from-date" class="label" style="font-weight: bold;"> Date:</label>
+                  <input type="date" id="from-date" name="from-date" class="input-field" style="width: 100%; padding: 10px;"> <!-- Adjust width and padding as needed -->
+               </div>
+               <div class="label-group">
+                  <label for="from-date2" class="label" style="display: none;">Opening Date:</label>
+                  <input type="date" id="from-date2" name="from-date2" class="input-field"style="display: none;"> <!-- Adjust width and padding as needed -->
+               </div>
+            </div>
+            <div class="form-group" style="flex-basis: 10%; text-align: right; margin-top: 10px;">
+               <button type="submit" class="buttony" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Show Products</button>
+               <br>
+               <a href="{% url 'setup' %}" class="logout-button" style="background-color: #e74c3c; color: white; text-decoration: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; display: block; margin-top: 10px;">Exit</a>
+            </div>
+         </div>
+      </form>
+      <!--- Section 1 end--->
+      {% if products %}
+      <div style="display: flex; justify-content: center; margin-top: 20px;">
+         <button class="buttony" onclick="printTable()">Print Table</button>
+      </div>
+      <form action="" method="post" class="form">
+         {% csrf_token %}
+         <div class="print-container">
+            <table class="table">
+               <div class="report-header">
+                  <h2>Stock Report</h2>
+                  <p class="date">DATE: {{ selected_date }}</p>
+               </div>
+               <thead>
+                  <tr>
+                     <th style="text-align: center;">Product Name</th>
+                     <th style="text-align: center;">Product Size</th>
+                     <th style="text-align: center;">Stock on Opening Date</th>
+                     <th style="text-align: center;">Today Sales</th>
+                     <th style="text-align: center;">Today Stock</th>
+                     <!-- TPENING Th -->
+                     <th style="text-align: center;">Opening Value <br> Purchase Rate Wise </th>
+                     <th style="text-align: center;">Opening Value <br> Sales Rate Wise </th>
+                     <!-- Closing Th -->
+                     <th style="text-align: center;">Stock Value <br> Purchase Rate Wise</th>
+                     <th style="text-align: center;">Stock Value <br> Sales Rate Wise</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for product in products %}
+                  <tr {% if product.not_sold_in_last_10_days %}style="font-weight: bold; font-size:18px;  background-color: darkgray;"{% endif %}>
+                     <td style="text-align: center;">{{ product.name }}</td>
+                     <td style="text-align: center;">{{ product.size }}</td>
+                     <td style="text-align: center;">{{ product.stock_on_another_date }}</td>
+                     <td style="text-align: center;">{{ product.today_sales }}</td>
+                     <td style="text-align: center;">{{ product.stock_on_date }}</td>
+                     <!-- TPENING Td -->
+                     <td style="text-align: center;">{{ product.stock_value_do_price_another_date }}</td>
+                     <td style="text-align: center;">{{ product.stock_value_sell_price_another_date }}</td>
+                     <!-- Closing Td -->
+                     <td style="text-align: center;">{{ product.stock_value_do_price }}</td>
+                     <td style="text-align: center;">{{ product.stock_value_sell_price }}</td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+               <tfoot>
+                  <tr>
+                     <td colspan="3" style="text-align: center;"><b>Total:</b></td>
+                     <td style="text-align: center;"><b id="total-stock-opening"></b></td>
+                     <td style="text-align: center;"><b id="total-stock"></b></td>
+                     <td style="text-align: center;"><b id="total-purchase"></b></td>
+                     <td style="text-align: center;"><b id="total-sales-value"></b></td>
+                     <td style="text-align: center;"><b id="total-purchase-another"></b></td>
+                     <td style="text-align: center;"><b id="total-sales-value-another"></b></td>
+                  </tr>
+               </tfoot>
+            </table>
+         </div>
+      </form>
+      <script>
+         window.onload = function() {
+            let totalStockOpening = 0;  // New variable for "Stock on Opening Date" total
+            let totalStock = 0;
+            let totalPurchaseValue = 0;
+            let totalSalesValue = 0;
+            let totalPurchaseAnotherValue = 0;
+            let totalSalesAnotherValue = 0;
+         
+            const rows = document.querySelectorAll('tbody tr');
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const stockOnOpeningDate = parseInt(row.cells[3].textContent) || 0; 
+                const stockOnDate = parseInt(row.cells[4].textContent) || 0;
+                const purchaseValue = parseInt(row.cells[5].textContent) || 0;
+                const salesValue = parseInt(row.cells[6].textContent) || 0;
+                const purchaseValueAnother = parseInt(row.cells[7].textContent) || 0;
+                const salesValueAnother = parseInt(row.cells[8].textContent) || 0;
+         
+                totalStockOpening += stockOnOpeningDate;  // Add to the "Stock on Opening Date" total
+                totalStock += stockOnDate;
+                totalPurchaseValue += purchaseValue;
+                totalSalesValue += salesValue;
+                totalPurchaseAnotherValue += purchaseValueAnother;
+                totalSalesAnotherValue += salesValueAnother;
+            }
+         
+            document.getElementById('total-stock-opening').textContent = totalStockOpening; 
+            document.getElementById('total-stock').textContent = totalStock;
+            document.getElementById('total-purchase').textContent = totalPurchaseValue;
+            document.getElementById('total-sales-value').textContent = totalSalesValue;
+            document.getElementById('total-purchase-another').textContent = totalPurchaseAnotherValue;
+            document.getElementById('total-sales-value-another').textContent = totalSalesAnotherValue;
+         }
+         
+         
+         // Function to print the table when the button is clicked
+         function printTable() {
+            const firstSection = document.querySelector('.form');
+            const printButtonContainer = document.querySelector('.print-button-container');
+         
+            // Hide the first section and print button container before printing
+            firstSection.style.display = 'none';
+            printButtonContainer.style.display = 'none';
+         
+            // Add print-specific CSS to center the table on the page
+            document.body.classList.add('printing');
+         
+            // Trigger the browser's print dialog
+            window.print();
+         
+            // Remove the print-specific CSS and show the first section and button container
+            document.body.classList.remove('printing');
+            firstSection.style.display = 'block';
+            printButtonContainer.style.display = 'block';
+         }
+         
+         // Function to print the table when the button is clicked
+         function printTable() {
+         const firstSection = document.querySelector('.form');
+         const printButton = document.querySelector('.buttony');
+         
+         // Hide the button before printing
+         printButton.style.display = 'none';
+         
+         // Hide the first section before printing
+         firstSection.style.display = 'none';
+         
+         // Add print-specific CSS to center the table on the page
+         document.body.classList.add('printing');
+         
+         // Trigger the browser's print dialog
+         window.print();
+         
+         // Remove the print-specific CSS and show the button and section again
+         document.body.classList.remove('printing');
+         printButton.style.display = 'block';
+         firstSection.style.display = 'block';
+         }
+         
+         // Get references to the Date and Opening Date input fields
+         const dateInput = document.getElementById('from-date');
+         const openingDateInput = document.getElementById('from-date2');
+         
+         // Add an event listener to the Date input field
+         dateInput.addEventListener('change', function() {
+         // Get the selected date from the Date input field
+         const selectedDate = new Date(dateInput.value);
+         
+         // Calculate the day before the selected date
+         const dayBefore = new Date(selectedDate);
+         dayBefore.setDate(selectedDate.getDate() - 1);
+         
+         // Format the day before as 'YYYY-MM-DD' for the Opening Date input
+         const formattedDate = dayBefore.toISOString().split('T')[0];
+         
+         // Set the value of the Opening Date input field
+         openingDateInput.value = formattedDate;
+         });
+         
+         
+      </script>
+      {% endif %}
+   </body>
+</html>

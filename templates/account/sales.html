@@ -1,0 +1,170 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/sales.css' %}">
+<form action="{% url 'sales' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="dropdown-container">
+      <div class="dropdown-wrapper">
+         <label for="supplier" class="label">Supplier:</label>
+         <select id="supplier" name="supplier" class="select">
+            {% for supplier in suppliers %}
+            <option value="{{ supplier.id }}">{{ supplier.sname }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="dropdown-wrapper">
+         <label for="brand" class="label">Brand:</label>
+         <select id="brand" name="brand" class="select">
+            {% for brand in brands %}
+            <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-group">
+         <button type="submit" class="buttony">Show Products</button>
+         <button type="button" class="logout-button" onclick="location.href='{% url 'account' %}';">Exit</button>
+      </div>
+   </div>
+</form>
+{% if products %}
+<form action="{% url 'sales' %}" method="post" class="form">
+   {% csrf_token %}
+   <div class="form-group">
+      <label for="date" class="label" required>Date:</label>
+      <input type="date" id="date" name="date" class="input"  required>
+      <label for="invoicing" class="label" required>Memo NO:</label>
+      <input style="text-align: center;" type="text" id="invoicing" name="invoicing" value="{{ next_mem_number }}" class="input">
+   </div>
+   <table class="table">
+      <thead>
+         <tr>
+            <th style="text-align: center;" >
+               <input type="checkbox" id="master-checkbox" onClick="pro_checkall();" class="checkbox">
+            </th>
+            <th style="text-align: center;" >Name</th>
+            <th style="text-align: center;" >Stock/PCS</th>
+            <th style="text-align: center;" >Purchase Price</th>
+            <th style="text-align: center;" > Commission  </th>
+            <th style="text-align: center;" > Accept  </th>
+            <th style="text-align: center;" > Return  </th>
+            <th style="text-align: center;" >Qty</th>
+            <th style="text-align: center;" >Sell Price</th>
+            <th style="text-align: center;" > Amount </th>
+            <th style="text-align: center;" > Total Commission </th>
+            <th style="text-align: center;" > Current Stock </th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for product in products %}
+         <tr>
+            <td style="text-align: center;">
+               <input type="checkbox" name="product_ids[]" value="{{ product.id }}" class="checkbox checkbox-item" id="checkbox_{{ product.id }}">
+            </td>
+            <!-- name and size -->
+            <td style="text-align: center;" >{{ product.name }} {{ product.size }}</td>
+            <!-- Stock -->
+            <td style="text-align: center;"><input id="total_qty_{{ product.id }}" style="text-align: center;" type="number" name="" value="{{ product.qty }}" class="input"></td>
+            <!-- Purchase Price -->
+            <td style="text-align: center;" ><input style="text-align: center;" type="number" name="{{ product.id }}_price" value="{{ product.current_price }}" class="input" step="any" id="{{ product.id }}_price"></td>
+            <!-- Commission -->
+            <td style="text-align: center;" >
+               <input style="text-align: center;" type="number" name="" value="{{ product.commission }}" class="input" step="any" id="commission_{{ product.id }}">
+            </td>
+            <td style="text-align: center;">
+               <input type="number" id="accept_{{ product.id }}" class="input" placeholder="Enter Accept" oninput="checkCheckbox({{ product.id }})">
+            </td>
+            <td style="text-align: center;"><input type="number" id="return_{{ product.id }}" class="input" placeholder="Enter Return"></td>
+            <!-- Qty -->
+            <td style="text-align: center;"><input id="qty_{{ product.id }}" step="any" type="number" name="price_{{ product.id }}" value="{{ product.price }}" class="input"></td>
+            <!-- Sell Price -->
+            <td style="text-align: center;"><input id="sell_price_{{ product.id }}" step="any" type="number" name="" value="{{ product.current_pricee }}" class="input"></td>
+            <!-- Update your template code for the "Amount" field -->
+            <td style="text-align: center;">
+               <input id="amount_{{ product.id }}" step="any" type="number" name="amount_{{ product.id }}" value="00" class="input" readonly>
+            </td>
+            <!-- Update your template code for the "Total Commission" field -->
+            <td style="text-align: center;">
+               <input id="total_commission_{{ product.id }}" type="number" step="any" name="total_commission_{{ product.id }}" value="00" class="input" readonly>
+            </td>
+            <!-- Update your template code for the "Current Stock" field -->
+            <td style="text-align: center;">
+               <input id="current_stock_{{ product.id }}" step="any" type="number" name="current_stock_{{ product.id }}" value="00" class="input" readonly>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <div class="form-group">
+      <button type="submit" name="save_price" value="true" class="button">Add to Cart</button>
+   </div>
+</form>
+{% endif %}
+<script>
+   function updateQty(productId) {
+      var acceptInput = document.getElementById("accept_" + productId);
+      var returnInput = document.getElementById("return_" + productId);
+      var qtyInput = document.getElementById("qty_" + productId);
+      var stockInput = document.getElementById("total_qty_" + productId);
+      var sellPriceInput = document.getElementById("sell_price_" + productId);
+      var amountInput = document.getElementById("amount_" + productId);
+      var totalCommissionInput = document.getElementById("total_commission_" + productId);
+      var currentStockInput = document.getElementById("current_stock_" + productId);
+   
+      var acceptValue = parseFloat(acceptInput.value) || 0;
+      var returnValue = parseFloat(returnInput.value) || 0;
+      var stockValue = parseFloat(stockInput.value) || 0;
+      var sellPrice = parseFloat(sellPriceInput.value) || 0;
+    
+   
+      var qty = acceptValue - returnValue;
+    
+   
+      qty = qty < 0 ? 0 : qty;
+    
+   
+      qtyInput.value = qty;
+    
+     
+      var amount = qty * sellPrice;
+      amountInput.value = amount.toFixed(2);
+    
+   
+      var commissionInput = document.getElementById("commission_" + productId);
+      var commission = parseFloat(commissionInput.value) || 0;
+      var totalCommission = qty * commission;
+      totalCommissionInput.value = totalCommission.toFixed(2);
+    
+   
+      var currentStock = stockValue - qty;
+      currentStockInput.value = currentStock.toFixed(2);
+    
+    
+      if (qty > stockValue) {
+        acceptInput.value = ""; 
+        acceptInput.disabled = true;
+      } else {
+        acceptInput.disabled = false;
+      }
+    }
+    
+   
+    function checkCheckbox(productId) {
+      var acceptValue = parseFloat(document.getElementById("accept_" + productId).value) || 0;
+      var checkbox = document.getElementById("checkbox_" + productId);
+    
+   
+      checkbox.checked = acceptValue > 0;
+    }
+    
+   
+    {% for product in products %}
+    document.getElementById("accept_{{ product.id }}").addEventListener("input", function () {
+      updateQty({{ product.id }});
+      checkCheckbox({{ product.id }});
+    });
+    
+    document.getElementById("return_{{ product.id }}").addEventListener("input", function () {
+      updateQty({{ product.id }});
+    });
+    
+    {% endfor %}
+</script>

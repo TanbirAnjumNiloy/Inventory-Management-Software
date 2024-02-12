@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/dailycost.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Daily Cost</title>
+   </head>
+   <body>
+      <div class="form-container">
+         <form action="{% url 'dailycost' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+               <label for="dsr-dropdown">DSR:</label>
+               <select name="dsr" id="dsr-dropdown">
+                  {% for dsr  in dsrs %}
+                  <option value="{{ dsr.id }}">{{ dsr.name }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="form-group" >
+               <label for="date">Date:</label>
+               <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+               <label for="car-cost">Car Cost:</label>
+               <input type="number" id="car-cost" name="car_cost" step="0.01" value="00" >
+            </div>
+            <div class="form-group">
+               <label for="dsr-bill">DSR Bill:</label>
+               <input type="number" id="dsr-bill" name="dsr_bill" step="0.01" value="00">
+            </div>
+            <div class="form-group">
+               <label for="toll">Toll:</label>
+               <input type="number" id="toll" name="toll" step="0.01" value="00">
+            </div>
+            <div class="form-group">
+               <label for="other-cost">Other Cost:</label>
+               <input type="number" id="other-cost" name="other_cost" step="0.01" value="00">
+            </div>
+            <div class="button-group"> 
+               <button type="submit">Save</button>
+               <a href="{% url 'report' %}"><button type="button" onclick="window.close();">Exit</button></a>
+            </div>
+         </form>
+      </div>
+   </body>
+</html>

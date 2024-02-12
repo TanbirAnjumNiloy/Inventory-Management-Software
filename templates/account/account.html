@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/account.css' %}">
+<head>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+</head>
+<div class="container">
+   <div>
+      <a href="{% url 'lifting' %}">
+         <img src="{% static 'assets/img/Lifting-setup-icon.png' %}" alt="Suppliers Setup icon">
+         <h2>Lifting</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'sales' %}">
+         <img src="{% static 'assets/img/Saless-setup-icon.png' %}" alt="sells Setup icon">
+         <h2>Sales</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'damage' %}">
+         <img src="{% static 'assets/img/Damage-name-icon.png' %}" alt="Group Name icon">
+         <h2>Damage</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'supplierspayment' %}">
+         <img src="{% static 'assets/img/Payment-name-icon.png' %}" alt="Product Name icon"> 
+         <h2> Payment</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'bank_manage' %}">
+         <img src="{% static 'assets/img/Loann-setup-icon.png' %}" alt="Market Setup icon">
+         <h2>Bank</h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'acdiccount' %}">
+         <img src="{% static 'assets/img/acdiscount-setup-icon.png' %}" alt="Market Setup icon">
+         <h2>Discount </h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'dailycost' %}">
+         <img src="{% static 'assets/img/cost-setup-icon.png' %}" alt="Market Setup icon">
+         <h2>Daily Cost </h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'chack' %}">
+         <img src="{% static 'assets/img/cost-setup-icon.png' %}" alt="Market Setup icon">
+         <h2>Chack </h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'collection' %}">
+         <img src="{% static 'assets/img/file.png' %}" alt="Market Setup icon">
+         <h2>Collection </h2>
+      </a>
+   </div>
+   <div>
+      <a href="{% url 'assets' %}">
+         <img src="{% static 'assets/img/property.png' %}" alt="Market Setup icon">
+         <h2> Assets </h2>
+      </a>
+   </div>
+</div>
+{% endblock %}

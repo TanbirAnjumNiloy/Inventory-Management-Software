@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/setup/discountsetup.css' %}">
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Discount Setup</title>
+   </head>
+   <body>
+      <form action="{% url 'discountsetup' %}" method="POST">
+         {% csrf_token %}
+         <div class="container">
+            <label for="supplier">Supplier:</label>
+            <select id="supplier" name="supplier" required>
+               {% for supplier in suppliers %}
+               <option value="{{ supplier.id }}" required>{{ supplier.sname }}</option >
+               {% endfor %}
+            </select>
+            <label for="brand">Brand:</label>
+            <select id="brand" name="brand" required>
+               {% for brand in brands %}
+               <option value="{{ brand.id }}" required>{{ brand.name }}</option>
+               {% endfor %}
+            </select>
+            <label for="program_name">Program Name:</label>
+            <input type="text" id="program_name" name="name" placeholder="Enter program name" required>
+            <input type="submit" value="Save">
+            <a href="{% url 'setup' %}"> <input type="button" value="Exit" onclick="window.close();"> </a>
+         </div>
+      </form>
+   </body>
+</html>
+{% block content %}
+{% endblock %}

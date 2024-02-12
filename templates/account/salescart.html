@@ -1,0 +1,124 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/account/salescart.css' %}">
+<script src="{% static 'assets/js/account/salescart.js' %}"></script>
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="styles.css">
+      <title>Table Example</title>
+   </head>
+   <body>
+      <form method="POST" action="{% url 'final' %}">
+         {% csrf_token %}
+         <table>
+            <thead>
+               <tr>
+                  <th style="text-align: center;">SL NO </th>
+                  <th style="text-align: center;" >Product Name</th>
+                  <th style="text-align: center;">Time</th>
+                  <th style="text-align: center;" >Memo NO</th>
+                  <th style="text-align: center;"> Qty</th>
+                  <th style="text-align: center;">Sales Price</th>
+                  <th style="text-align: center;">Product Wise Amount</th>
+                  <th style="text-align: center;">Total Commission</th>
+                  <th style="text-align: center;">Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               
+               {% for product in products %}
+               <tr >
+                  <td style="text-align: center;" >{{ forloop.counter }}</td>
+                  <td style="text-align: center;" >{{ product.product.name }} {{ product.product.size }}</td>
+                  <td style="text-align: center;" >{{ sales_date|default:"" }}</td>
+                  <td style="text-align: center;" >{{ sales_mem_number|default:"" }}</td>
+                  <td style="text-align: center;" >{{ product.qty }}</td>
+                  <td style="text-align: center;" >{{  product.current_pricee }}</td>
+                  <td style="text-align: center;" >{{ product.total_amount|floatformat:2 }}</td>
+                  <td style="text-align: center;" >{{ product.total_commission|floatformat:2 }}</td>
+                  <td style="text-align: center;"><button class="remove-button">Remove</button></td>
+               </tr>
+               {% endfor %}
+            </tbody>
+            <tfoot>
+               <tr>
+                  <td  style="text-align: center;" colspan="6">Total</td>
+                  <td  style="text-align: center;" id="total-amount"></td>
+                  <td  style="text-align: center;" id="total-commission"></td>
+                  <td></td>
+               </tr>
+            </tfoot>
+         </table>
+         {% for product in products %}
+         <input type="hidden" name="product_{{ product.product.id }}_qty" value="{{ product.qty }}">
+         <input type="hidden" name="product_{{ product.product.id }}_price" value="{{ product.price }}">
+         <input type="hidden" name="product_{{ product.product.id }}_total_amount" value="{{ product.total_amount|floatformat:2 }}">
+         <input type="hidden" name="product_{{ product.product.id }}_total_commission" value="{{ product.total_commission|floatformat:2 }}">
+         {% endfor %}
+         <input type="hidden" id="dsr_id" name="dsr_id" value="">
+         <input type="hidden" id="market_id" name="market_id" value="">
+         <button id="final" type="submit">Final</button>
+      </form>
+      <select id="dsr-name">
+         <option value="">DSR Name</option>
+         {% for dsr     in dsrs %}
+         <option value="{{ dsr.id }}">{{ dsr.name }}</option>
+         {% endfor %}
+      </select>
+      <select id="market-name">
+         <option value="">Market Name</option>
+         {% for market in markets %}
+         <option value="{{ market.id }}">{{ market.area }}</option>
+         {% endfor %}
+      </select>
+   </body>
+</html>
+<script>
+   function updateTotal() {
+       const products = document.querySelectorAll('tbody tr');
+       let totalAmount = 0;
+       let totalCommission = 0;
+   
+       for (const product of products) {
+           const amount = parseFloat(product.querySelector('td:nth-child(7)').textContent);
+           const commission = parseFloat(product.querySelector('td:nth-child(8)').textContent);
+   
+           totalAmount += amount;
+           totalCommission += commission;
+       }
+   
+       document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
+       document.getElementById('total-commission').textContent = totalCommission.toFixed(2);
+   }
+   
+   function removeProduct(event) {
+       const row = event.target.closest('tr');
+       row.remove();
+       updateTotal();
+   }
+   
+   function addRemoveListeners() {
+       const removeButtons = document.querySelectorAll('.remove-button');
+       for (const button of removeButtons) {
+           button.addEventListener('click', removeProduct);
+       }
+   }
+   
+   document.addEventListener('DOMContentLoaded', function() {
+       updateTotal();
+       addRemoveListeners();
+   });
+   
+   
+   document.getElementById('dsr-name').addEventListener('change', function() {
+       document.getElementById('dsr_id').value = this.value;
+   });
+   
+   document.getElementById('market-name').addEventListener('change', function() {
+       document.getElementById('market_id').value = this.value;
+   });
+   
+   
+</script>
